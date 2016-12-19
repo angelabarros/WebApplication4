@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="projetoModel_teste.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="clientcompany">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name_company" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="address" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="telephone" Type="int" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="column_excel">
+          <Key>
+            <PropertyRef Name="id_column" />
+          </Key>
+          <Property Name="id_column" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name_column" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="condition_instruction">
+          <Key>
+            <PropertyRef Name="id_condition" />
+          </Key>
+          <Property Name="and_or_condition" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="number_order" Type="int" Nullable="false" />
+          <Property Name="id_condition" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="condition_instruction" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="column_excel" Type="int" Nullable="false" />
+          <Property Name="id_formula" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="formula">
+          <Key>
+            <PropertyRef Name="id_formula" />
+          </Key>
+          <Property Name="id_formula" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name_formula" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="id_tag" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tag">
+          <Key>
+            <PropertyRef Name="id_tag" />
+          </Key>
+          <Property Name="id_tag" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name_tag" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="id_template" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="template">
+          <Key>
+            <PropertyRef Name="id_template" />
+          </Key>
+          <Property Name="id_template" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name_template" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="URL_template" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name_user" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password_user" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="role" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="status_user" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="answer_recovery" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="tag_ibfk_1">
+          <End Role="template" Type="Self.template" Multiplicity="1" />
+          <End Role="tag" Type="Self.tag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="template">
+              <PropertyRef Name="id_template" />
+            </Principal>
+            <Dependent Role="tag">
+              <PropertyRef Name="id_template" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="projetoModel_testeStoreContainer">
+          <EntitySet Name="clientcompany" EntityType="Self.clientcompany" Schema="projeto" store:Type="Tables" />
+          <EntitySet Name="column_excel" EntityType="Self.column_excel" Schema="projeto" store:Type="Tables" />
+          <EntitySet Name="condition_instruction" EntityType="Self.condition_instruction" Schema="projeto" store:Type="Tables" />
+          <EntitySet Name="formula" EntityType="Self.formula" Schema="projeto" store:Type="Tables" />
+          <EntitySet Name="tag" EntityType="Self.tag" Schema="projeto" store:Type="Tables" />
+          <EntitySet Name="template" EntityType="Self.template" Schema="projeto" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="projeto" store:Type="Tables" />
+          <AssociationSet Name="tag_ibfk_1" Association="Self.tag_ibfk_1">
+            <End Role="template" EntitySet="template" />
+            <End Role="tag" EntitySet="tag" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="projetoModel_teste" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="clientcompany">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name_company" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telephone" Type="Int32" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="column_excel">
+          <Key>
+            <PropertyRef Name="id_column" />
+          </Key>
+          <Property Name="id_column" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name_column" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="condition_instruction">
+          <Key>
+            <PropertyRef Name="id_condition" />
+          </Key>
+          <Property Name="and_or_condition" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="number_order" Type="Int32" Nullable="false" />
+          <Property Name="id_condition" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="condition_instruction1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="column_excel" Type="Int32" Nullable="false" />
+          <Property Name="id_formula" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="formula">
+          <Key>
+            <PropertyRef Name="id_formula" />
+          </Key>
+          <Property Name="id_formula" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name_formula" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_tag" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tag">
+          <Key>
+            <PropertyRef Name="id_tag" />
+          </Key>
+          <Property Name="id_tag" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name_tag" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_template" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="template" Relationship="Self.tag_ibfk_1" FromRole="tag" ToRole="template" />
+        </EntityType>
+        <EntityType Name="template">
+          <Key>
+            <PropertyRef Name="id_template" />
+          </Key>
+          <Property Name="id_template" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name_template" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="URL_template" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tags" Relationship="Self.tag_ibfk_1" FromRole="template" ToRole="tag" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="role" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="status_user" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="answer_recovery" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <Association Name="tag_ibfk_1">
+          <End Role="template" Type="Self.template" Multiplicity="1" />
+          <End Role="tag" Type="Self.tag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="template">
+              <PropertyRef Name="id_template" />
+            </Principal>
+            <Dependent Role="tag">
+              <PropertyRef Name="id_template" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="projetoEntities_teste" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="clientcompanies" EntityType="Self.clientcompany" />
+          <EntitySet Name="column_excel" EntityType="Self.column_excel" />
+          <EntitySet Name="condition_instruction" EntityType="Self.condition_instruction" />
+          <EntitySet Name="formulae" EntityType="Self.formula" />
+          <EntitySet Name="tags" EntityType="Self.tag" />
+          <EntitySet Name="templates" EntityType="Self.template" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <AssociationSet Name="tag_ibfk_1" Association="Self.tag_ibfk_1">
+            <End Role="template" EntitySet="templates" />
+            <End Role="tag" EntitySet="tags" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="projetoModel_testeStoreContainer" CdmEntityContainer="projetoEntities_teste">
+          <EntitySetMapping Name="clientcompanies">
+            <EntityTypeMapping TypeName="projetoModel_teste.clientcompany">
+              <MappingFragment StoreEntitySet="clientcompany">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name_company" ColumnName="name_company" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="telephone" ColumnName="telephone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="column_excel">
+            <EntityTypeMapping TypeName="projetoModel_teste.column_excel">
+              <MappingFragment StoreEntitySet="column_excel">
+                <ScalarProperty Name="id_column" ColumnName="id_column" />
+                <ScalarProperty Name="name_column" ColumnName="name_column" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="condition_instruction">
+            <EntityTypeMapping TypeName="projetoModel_teste.condition_instruction">
+              <MappingFragment StoreEntitySet="condition_instruction">
+                <ScalarProperty Name="and_or_condition" ColumnName="and_or_condition" />
+                <ScalarProperty Name="number_order" ColumnName="number_order" />
+                <ScalarProperty Name="id_condition" ColumnName="id_condition" />
+                <ScalarProperty Name="condition_instruction1" ColumnName="condition_instruction" />
+                <ScalarProperty Name="column_excel" ColumnName="column_excel" />
+                <ScalarProperty Name="id_formula" ColumnName="id_formula" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="formulae">
+            <EntityTypeMapping TypeName="projetoModel_teste.formula">
+              <MappingFragment StoreEntitySet="formula">
+                <ScalarProperty Name="id_formula" ColumnName="id_formula" />
+                <ScalarProperty Name="name_formula" ColumnName="name_formula" />
+                <ScalarProperty Name="id_tag" ColumnName="id_tag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tags">
+            <EntityTypeMapping TypeName="projetoModel_teste.tag">
+              <MappingFragment StoreEntitySet="tag">
+                <ScalarProperty Name="id_tag" ColumnName="id_tag" />
+                <ScalarProperty Name="name_tag" ColumnName="name_tag" />
+                <ScalarProperty Name="id_template" ColumnName="id_template" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="templates">
+            <EntityTypeMapping TypeName="projetoModel_teste.template">
+              <MappingFragment StoreEntitySet="template">
+                <ScalarProperty Name="id_template" ColumnName="id_template" />
+                <ScalarProperty Name="name_template" ColumnName="name_template" />
+                <ScalarProperty Name="URL_template" ColumnName="URL_template" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="projetoModel_teste.user">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name_user" ColumnName="name_user" />
+                <ScalarProperty Name="password_user" ColumnName="password_user" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="status_user" ColumnName="status_user" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="answer_recovery" ColumnName="answer_recovery" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
