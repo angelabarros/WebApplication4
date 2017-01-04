@@ -13,6 +13,7 @@
         <EntityTypeShape EntityType="projetoModel_teste.template" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="projetoModel_teste.user" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
         <AssociationConnector Association="projetoModel_teste.tag_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="projetoModel_teste.formula_ibfk_2" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

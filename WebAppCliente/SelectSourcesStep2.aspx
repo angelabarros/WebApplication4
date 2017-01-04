@@ -7,9 +7,9 @@
     <h3 style="text-align:center;">Step 2 of 3</h3>
 
   
-            <h5>All Tags From Template</h5>
-            <asp:GridView ID="gd1" runat="server"  RenderMode="Auto" style="width:250px; margin-left:0px; margin-top:5px;" AutoGenerateColumns="False"
-             DataKeyNames="Name" CellPadding="4"  HorizontalAlign="Center"  EnablePersistedSelection="True" ForeColor="#333333" GridLines="Vertical" RowStyle-Wrap="false" Width="200px" >
+            <h5 style="text-align:center">All Tags From Template</h5>
+            <asp:GridView ID="gd1" runat="server" HorizontalAlign="Center" RenderMode="Auto" style=" margin-top:20px;" AutoGenerateColumns="False"
+             DataKeyNames="Name" CellPadding="4"    EnablePersistedSelection="True" ForeColor="#333333" GridLines="Vertical" RowStyle-Wrap="false" Width="700px" >
             <AlternatingRowStyle BackColor="White" />
      
             <Columns>
@@ -18,11 +18,11 @@
                 <asp:CheckBox ID="chkRow" runat="server" />
             </ItemTemplate>
         </asp:TemplateField>
-                <asp:BoundField HeaderText="Name" DataField="Name" ItemStyle-Width="200px">
+                <asp:BoundField HeaderText="Name" DataField="Name" ItemStyle-Width="700px">
                
            
 
-<ItemStyle Width="200px"></ItemStyle>
+<ItemStyle Width="700px"></ItemStyle>
                 </asp:BoundField>
 
             <asp:BoundField HeaderText="Status" DataField="Status" ItemStyle-Width="50px"> 
@@ -46,6 +46,11 @@
 
         </asp:GridView>
 
-    <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Change Status" />
+
+        <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="Next" style="float:right; margin-top:50px; width:100px; margin-left:10px;" Width="120px" />
+
+
+    <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Change Status" style="float:right; margin-top:50px;" Width="120px" />
+
 
 </asp:Content>

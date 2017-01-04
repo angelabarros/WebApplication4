@@ -166,6 +166,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Account\LogoutRedirecting.aspx" />
     <Content Include="Carousel\barcelos.jpg" />
     <Content Include="Carousel\festas_viana.jpg" />
     <Content Include="Carousel\logo blog iten.jpg" />
@@ -176,6 +177,8 @@
     <Content Include="CreateTags.aspx" />
     <Content Include="CreateUser.aspx" />
     <Content Include="EditUser.aspx" />
+    <Content Include="LogoutRedirecting.aspx" />
+    <Content Include="MenuFormulas.aspx" />
     <Content Include="NewFormula.aspx" />
     <Content Include="SelectSources.aspx" />
     <Content Include="SelectSourcesStep2.aspx" />
@@ -341,6 +344,13 @@
     <Compile Include="Account\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Account\LogoutRedirecting.aspx.cs">
+      <DependentUpon>LogoutRedirecting.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\LogoutRedirecting.aspx.designer.cs">
+      <DependentUpon>LogoutRedirecting.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Account\Manage.aspx.cs">
       <DependentUpon>Manage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -473,6 +483,23 @@
     <Compile Include="file.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="formula.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LogoutRedirecting.aspx.cs">
+      <DependentUpon>LogoutRedirecting.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LogoutRedirecting.aspx.designer.cs">
+      <DependentUpon>LogoutRedirecting.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MenuFormulas.aspx.cs">
+      <DependentUpon>MenuFormulas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MenuFormulas.aspx.designer.cs">
+      <DependentUpon>MenuFormulas.aspx</DependentUpon>
+    </Compile>
     <Compile Include="NewFormula.aspx.cs">
       <DependentUpon>NewFormula.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -504,15 +531,18 @@
     <Compile Include="spreadsheet.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="tag.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="template.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="UploadExcel.aspx.cs">
       <DependentUpon>UploadExcel.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="UploadExcel.aspx.designer.cs">
       <DependentUpon>UploadExcel.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="formula.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Generator.aspx.cs">
       <DependentUpon>Generator.aspx</DependentUpon>
@@ -616,12 +646,6 @@
       <DependentUpon>Site.Mobile.Master</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
-    <Compile Include="tag.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="template.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Templates.aspx.cs">
       <DependentUpon>Templates.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

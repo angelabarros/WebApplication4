@@ -14,11 +14,19 @@ namespace WebAppCliente
     
     public partial class formula
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public formula()
+        {
+            this.condition_instruction = new HashSet<condition_instruction>();
+        }
+    
         public int id_formula { get; set; }
         public string name_formula { get; set; }
         public int id_tag { get; set; }
         public string method { get; set; }
     
         public virtual tag tag { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<condition_instruction> condition_instruction { get; set; }
     }
 }

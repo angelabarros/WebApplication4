@@ -29,12 +29,13 @@
           <Key>
             <PropertyRef Name="id_condition" />
           </Key>
-          <Property Name="and_or_condition" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="and_or_condition" Type="varchar" MaxLength="10" />
           <Property Name="number_order" Type="int" Nullable="false" />
           <Property Name="id_condition" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="condition_instruction" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="column_excel" Type="int" Nullable="false" />
           <Property Name="id_formula" Type="int" Nullable="false" />
+          <Property Name="operator" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="file">
           <Key>
@@ -50,7 +51,7 @@
           <Property Name="id_formula" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name_formula" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="id_tag" Type="int" Nullable="false" />
-          <Property Name="method" Type="varchar" MaxLength="100" />
+          <Property Name="method" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="spreadsheet">
           <Key>
@@ -97,6 +98,30 @@
             </Principal>
             <Dependent Role="column_excel">
               <PropertyRef Name="spreadsheet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="condition_instruction_ibfk_1">
+          <End Role="formula" Type="Self.formula" Multiplicity="1" />
+          <End Role="condition_instruction" Type="Self.condition_instruction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="formula">
+              <PropertyRef Name="id_formula" />
+            </Principal>
+            <Dependent Role="condition_instruction">
+              <PropertyRef Name="id_formula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="condition_instruction_ibfk_2">
+          <End Role="column_excel" Type="Self.column_excel" Multiplicity="1" />
+          <End Role="condition_instruction" Type="Self.condition_instruction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="column_excel">
+              <PropertyRef Name="id_column" />
+            </Principal>
+            <Dependent Role="condition_instruction">
+              <PropertyRef Name="column_excel" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -150,6 +175,14 @@
             <End Role="spreadsheet" EntitySet="spreadsheet" />
             <End Role="column_excel" EntitySet="column_excel" />
           </AssociationSet>
+          <AssociationSet Name="condition_instruction_ibfk_1" Association="Self.condition_instruction_ibfk_1">
+            <End Role="formula" EntitySet="formula" />
+            <End Role="condition_instruction" EntitySet="condition_instruction" />
+          </AssociationSet>
+          <AssociationSet Name="condition_instruction_ibfk_2" Association="Self.condition_instruction_ibfk_2">
+            <End Role="column_excel" EntitySet="column_excel" />
+            <End Role="condition_instruction" EntitySet="condition_instruction" />
+          </AssociationSet>
           <AssociationSet Name="formula_ibfk_2" Association="Self.formula_ibfk_2">
             <End Role="tag" EntitySet="tag" />
             <End Role="formula" EntitySet="formula" />
@@ -186,6 +219,7 @@
           <Property Name="id_column" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name_column" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="spreadsheet" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="condition_instruction" Relationship="projetoModel.condition_instruction_ibfk_2" FromRole="column_excel" ToRole="condition_instruction" />
         </EntityType>
         <EntityType Name="condition_instruction">
           <Key>
@@ -197,6 +231,9 @@
           <Property Name="condition_instruction1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="column_excel" Type="Int32" Nullable="false" />
           <Property Name="id_formula" Type="Int32" Nullable="false" />
+          <Property Name="operator" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="formula" Relationship="projetoModel.condition_instruction_ibfk_1" FromRole="condition_instruction" ToRole="formula" />
+          <NavigationProperty Name="column_excel1" Relationship="projetoModel.condition_instruction_ibfk_2" FromRole="condition_instruction" ToRole="column_excel" />
         </EntityType>
         <EntityType Name="formula">
           <Key>
@@ -206,7 +243,8 @@
           <Property Name="name_formula" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="id_tag" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tag" Relationship="projetoModel.formula_ibfk_2" FromRole="formula" ToRole="tag" />
-          <Property Name="method" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="method" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="condition_instruction" Relationship="projetoModel.condition_instruction_ibfk_1" FromRole="formula" ToRole="condition_instruction" />
         </EntityType>
         <EntityType Name="tag">
           <Key>
@@ -277,6 +315,14 @@
             <End Role="file" EntitySet="files" />
             <End Role="spreadsheet" EntitySet="spreadsheets" />
           </AssociationSet>
+          <AssociationSet Name="condition_instruction_ibfk_1" Association="projetoModel.condition_instruction_ibfk_1">
+            <End Role="formula" EntitySet="formulae" />
+            <End Role="condition_instruction" EntitySet="condition_instruction" />
+          </AssociationSet>
+          <AssociationSet Name="condition_instruction_ibfk_2" Association="projetoModel.condition_instruction_ibfk_2">
+            <End Role="column_excel" EntitySet="column_excel" />
+            <End Role="condition_instruction" EntitySet="condition_instruction" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="formula_ibfk_2">
           <End Type="projetoModel.tag" Role="tag" Multiplicity="1" />
@@ -331,6 +377,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="condition_instruction_ibfk_1">
+          <End Type="projetoModel.formula" Role="formula" Multiplicity="1" />
+          <End Type="projetoModel.condition_instruction" Role="condition_instruction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="formula">
+              <PropertyRef Name="id_formula" />
+            </Principal>
+            <Dependent Role="condition_instruction">
+              <PropertyRef Name="id_formula" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="condition_instruction_ibfk_2">
+          <End Type="projetoModel.column_excel" Role="column_excel" Multiplicity="1" />
+          <End Type="projetoModel.condition_instruction" Role="condition_instruction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="column_excel">
+              <PropertyRef Name="id_column" />
+            </Principal>
+            <Dependent Role="condition_instruction">
+              <PropertyRef Name="column_excel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -362,6 +432,7 @@
           <EntitySetMapping Name="condition_instruction">
             <EntityTypeMapping TypeName="projetoModel.condition_instruction">
               <MappingFragment StoreEntitySet="condition_instruction">
+                <ScalarProperty Name="operator" ColumnName="operator" />
                 <ScalarProperty Name="and_or_condition" ColumnName="and_or_condition" />
                 <ScalarProperty Name="number_order" ColumnName="number_order" />
                 <ScalarProperty Name="id_condition" ColumnName="id_condition" />

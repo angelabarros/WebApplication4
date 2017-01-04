@@ -20,5 +20,9 @@ namespace WebAppCliente
         public string condition_instruction1 { get; set; }
         public int column_excel { get; set; }
         public int id_formula { get; set; }
+        public int @operator { get; set; }
+    
+        public virtual formula formula { get; set; }
+        public virtual column_excel column_excel1 { get; set; }
     }
 }

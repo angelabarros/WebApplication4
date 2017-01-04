@@ -16,8 +16,18 @@ namespace WebAppCliente
     {
 
         projetoEntities pe = new projetoEntities();
+        user logged;
         protected void Page_Load(object sender, EventArgs e)
         {
+            try
+            {
+                logged = (user)Session["User_logged"];
+
+            }
+            catch (NullReferenceException x)
+            {
+                Response.Redirect("RedirectingToLogin.aspx");
+            }
 
         }
 

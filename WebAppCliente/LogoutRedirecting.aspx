@@ -1,11 +1,10 @@
-﻿<%@ Page Title="Register" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Register.aspx.cs" Inherits="WebAppCliente.Account.Register" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="LogoutRedirecting.aspx.cs" Inherits="WebAppCliente.LogoutRedirecting1" %>
 
-<asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="MainContent">
-   <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
-<head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
   
-        <meta http-equiv="Refresh"  />
+        <meta http-equiv="Refresh" content="5;url=Login.aspx" />
     <title></title>
     <style type="text/css">
         body
@@ -46,8 +45,8 @@
     </style>
 </head>
 <body>
-    <form id="form1" >
-    <asp:ScriptManager >
+    <form id="form1" runat="server">
+    <asp:ScriptManager runat="server">
     </asp:ScriptManager>
     <asp:UpdateProgress ID="UpdateProgress1" runat="server" AssociatedUpdatePanelID="UpdatePanel1">
         <ProgressTemplate>
@@ -61,11 +60,9 @@
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
             <div align="center">
-                <h1 style="margin-top:200px;">
-                    You are being redirected to the Login
-                    page.</h1>
-
-                   <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Login Page" />
+                <h1>
+                    <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+                    You are being redirected to the Login page.</h1>
                
             </div>
         </ContentTemplate>
@@ -73,5 +70,3 @@
     </form>
 </body>
 </html>
-
-</asp:Content>

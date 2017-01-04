@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="projetoModel_teste.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="projetoModel_teste.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="clientcompany">
           <Key>
             <PropertyRef Name="id" />
@@ -14,6 +14,8 @@
           <Property Name="address" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="telephone" Type="int" Nullable="false" />
           <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Domain" Type="varchar" MaxLength="100" />
+          <Property Name="logotipo" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="column_excel">
           <Key>
@@ -21,6 +23,7 @@
           </Key>
           <Property Name="id_column" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name_column" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="spreadsheet" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="condition_instruction">
           <Key>
@@ -40,6 +43,7 @@
           <Property Name="id_formula" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name_formula" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="id_tag" Type="int" Nullable="false" />
+          <Property Name="method" Type="int" />
         </EntityType>
         <EntityType Name="tag">
           <Key>
@@ -48,6 +52,7 @@
           <Property Name="id_tag" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name_tag" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="id_template" Type="int" Nullable="false" />
+          <Property Name="status" Type="int" />
         </EntityType>
         <EntityType Name="template">
           <Key>
@@ -67,8 +72,19 @@
           <Property Name="role" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="status_user" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="email" Type="varchar" MaxLength="50" />
-          <Property Name="answer_recovery" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <Association Name="formula_ibfk_2">
+          <End Role="tag" Type="Self.tag" Multiplicity="1" />
+          <End Role="formula" Type="Self.formula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tag">
+              <PropertyRef Name="id_tag" />
+            </Principal>
+            <Dependent Role="formula">
+              <PropertyRef Name="id_tag" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="tag_ibfk_1">
           <End Role="template" Type="Self.template" Multiplicity="1" />
           <End Role="tag" Type="Self.tag" Multiplicity="*" />
@@ -89,13 +105,16 @@
           <EntitySet Name="tag" EntityType="Self.tag" Schema="projeto" store:Type="Tables" />
           <EntitySet Name="template" EntityType="Self.template" Schema="projeto" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="projeto" store:Type="Tables" />
+          <AssociationSet Name="formula_ibfk_2" Association="Self.formula_ibfk_2">
+            <End Role="tag" EntitySet="tag" />
+            <End Role="formula" EntitySet="formula" />
+          </AssociationSet>
           <AssociationSet Name="tag_ibfk_1" Association="Self.tag_ibfk_1">
             <End Role="template" EntitySet="template" />
             <End Role="tag" EntitySet="tag" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="projetoModel_teste" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -108,6 +127,8 @@
           <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="telephone" Type="Int32" Nullable="false" />
           <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Domain" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="logotipo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="column_excel">
           <Key>
@@ -115,6 +136,7 @@
           </Key>
           <Property Name="id_column" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name_column" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="spreadsheet" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="condition_instruction">
           <Key>
@@ -134,6 +156,8 @@
           <Property Name="id_formula" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name_formula" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="id_tag" Type="Int32" Nullable="false" />
+          <Property Name="method" Type="Int32" />
+          <NavigationProperty Name="tag" Relationship="projetoModel_teste.formula_ibfk_2" FromRole="formula" ToRole="tag" />
         </EntityType>
         <EntityType Name="tag">
           <Key>
@@ -143,6 +167,8 @@
           <Property Name="name_tag" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="id_template" Type="Int32" Nullable="false" />
           <NavigationProperty Name="template" Relationship="Self.tag_ibfk_1" FromRole="tag" ToRole="template" />
+          <Property Name="status" Type="Int32" />
+          <NavigationProperty Name="formulae" Relationship="projetoModel_teste.formula_ibfk_2" FromRole="tag" ToRole="formula" />
         </EntityType>
         <EntityType Name="template">
           <Key>
@@ -163,7 +189,6 @@
           <Property Name="role" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="status_user" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="answer_recovery" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <Association Name="tag_ibfk_1">
           <End Role="template" Type="Self.template" Multiplicity="1" />
@@ -189,7 +214,23 @@
             <End Role="template" EntitySet="templates" />
             <End Role="tag" EntitySet="tags" />
           </AssociationSet>
+          <AssociationSet Name="formula_ibfk_2" Association="projetoModel_teste.formula_ibfk_2">
+            <End Role="tag" EntitySet="tags" />
+            <End Role="formula" EntitySet="formulae" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="formula_ibfk_2">
+          <End Type="projetoModel_teste.tag" Role="tag" Multiplicity="1" />
+          <End Type="projetoModel_teste.formula" Role="formula" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tag">
+              <PropertyRef Name="id_tag" />
+            </Principal>
+            <Dependent Role="formula">
+              <PropertyRef Name="id_tag" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -199,6 +240,8 @@
           <EntitySetMapping Name="clientcompanies">
             <EntityTypeMapping TypeName="projetoModel_teste.clientcompany">
               <MappingFragment StoreEntitySet="clientcompany">
+                <ScalarProperty Name="logotipo" ColumnName="logotipo" />
+                <ScalarProperty Name="Domain" ColumnName="Domain" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name_company" ColumnName="name_company" />
                 <ScalarProperty Name="address" ColumnName="address" />
@@ -210,6 +253,7 @@
           <EntitySetMapping Name="column_excel">
             <EntityTypeMapping TypeName="projetoModel_teste.column_excel">
               <MappingFragment StoreEntitySet="column_excel">
+                <ScalarProperty Name="spreadsheet" ColumnName="spreadsheet" />
                 <ScalarProperty Name="id_column" ColumnName="id_column" />
                 <ScalarProperty Name="name_column" ColumnName="name_column" />
               </MappingFragment>
@@ -230,6 +274,7 @@
           <EntitySetMapping Name="formulae">
             <EntityTypeMapping TypeName="projetoModel_teste.formula">
               <MappingFragment StoreEntitySet="formula">
+                <ScalarProperty Name="method" ColumnName="method" />
                 <ScalarProperty Name="id_formula" ColumnName="id_formula" />
                 <ScalarProperty Name="name_formula" ColumnName="name_formula" />
                 <ScalarProperty Name="id_tag" ColumnName="id_tag" />
@@ -239,6 +284,7 @@
           <EntitySetMapping Name="tags">
             <EntityTypeMapping TypeName="projetoModel_teste.tag">
               <MappingFragment StoreEntitySet="tag">
+                <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="id_tag" ColumnName="id_tag" />
                 <ScalarProperty Name="name_tag" ColumnName="name_tag" />
                 <ScalarProperty Name="id_template" ColumnName="id_template" />
@@ -263,7 +309,6 @@
                 <ScalarProperty Name="role" ColumnName="role" />
                 <ScalarProperty Name="status_user" ColumnName="status_user" />
                 <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="answer_recovery" ColumnName="answer_recovery" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

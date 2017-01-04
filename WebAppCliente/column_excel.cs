@@ -14,8 +14,17 @@ namespace WebAppCliente
     
     public partial class column_excel
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public column_excel()
+        {
+            this.condition_instruction = new HashSet<condition_instruction>();
+        }
+    
         public int id_column { get; set; }
         public string name_column { get; set; }
         public int spreadsheet { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<condition_instruction> condition_instruction { get; set; }
     }
 }

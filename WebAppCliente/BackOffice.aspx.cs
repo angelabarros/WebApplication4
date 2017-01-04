@@ -45,5 +45,10 @@ namespace WebAppCliente
            // Session["User_logged"] = logged;
             Response.Redirect("ListTemplates.aspx");
         }
+
+        protected void Button_formulas_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("MenuFormulas.aspx");
+        }
     }
 }
